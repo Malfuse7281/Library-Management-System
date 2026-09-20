@@ -1,0 +1,221 @@
+CREATE TABLE LMS_MEMBERS (
+    MEMBER_ID VARCHAR(10) PRIMARY KEY,
+    MEMBER_NAME VARCHAR(30),
+    CITY VARCHAR(20),
+    DATE_REGISTER DATE,
+    DATE_EXPIRE DATE,
+    MEMBERSHIP_STATUS VARCHAR(15)
+);
+CREATE TABLE LMS_SUPPLIERS_DETAILS (
+    SUPPLIER_ID VARCHAR(3) PRIMARY KEY,
+    SUPPLIER_NAME VARCHAR(30),
+    ADDRESS VARCHAR(50),
+    CONTACT BIGINT,
+    EMAIL VARCHAR(15)
+);
+CREATE TABLE LMS_FINE_DETAILS (
+    FINE_RANGE VARCHAR(3) PRIMARY KEY,
+    FINE_AMOUNT DECIMAL(10,2)
+);
+CREATE TABLE LMS_BOOK_DETAILS (
+    BOOK_CODE VARCHAR(10) PRIMARY KEY,
+    BOOK_TITLE VARCHAR(50),
+    CATEGORY VARCHAR(15),
+    AUTHOR VARCHAR(30),
+    PUBLICATION VARCHAR(30),
+    PUBLISH_DATE DATE,
+    BOOK_EDITION INT,
+    PRICE DECIMAL(10,2),
+    RACK_NUM VARCHAR(3),
+    DATE_ARRIVAL DATE,
+    SUPPLIER_ID VARCHAR(3),
+    FOREIGN KEY (SUPPLIER_ID)
+        REFERENCES LMS_SUPPLIERS_DETAILS(SUPPLIER_ID)
+);
+CREATE TABLE LMS_BOOK_ISSUE (
+    BOOK_ISSUE_NO INT PRIMARY KEY,
+    MEMBER_ID VARCHAR(10),
+    BOOK_CODE VARCHAR(10),
+    DATE_ISSUE DATE,
+    DATE_RETURN DATE,
+    DATE_RETURNED DATE,
+    BOOK_ISSUE_STATUS VARCHAR(20),
+    FINE_RANGE VARCHAR(3),
+    FOREIGN KEY (MEMBER_ID)
+        REFERENCES LMS_MEMBERS(MEMBER_ID),
+    FOREIGN KEY (BOOK_CODE)
+        REFERENCES LMS_BOOK_DETAILS(BOOK_CODE),
+    FOREIGN KEY (FINE_RANGE)
+        REFERENCES LMS_FINE_DETAILS(FINE_RANGE)
+);
+SHOW TABLES;
+INSERT INTO LMS_SUPPLIERS_DETAILS
+(SUPPLIER_ID, SUPPLIER_NAME, ADDRESS, CONTACT, EMAIL)
+VALUES
+('S01','Prentice Hall','Hyderabad',9876500001,'s01@gmail.com'),
+('S02','Pearson','Chennai',9876500002,'s02@gmail.com'),
+('S03','McGraw Hill','Delhi',9876500003,'s03@gmail.com'),
+('S04','Oxford Press','Mumbai',9876500004,'s04@gmail.com'),
+('S05','Wiley','Bangalore',9876500005,'s05@gmail.com'),
+('S06','Springer','Pune',9876500006,'s06@gmail.com'),
+('S07','Cengage','Kolkata',9876500007,'s07@gmail.com'),
+('S08','OReilly','Hyderabad',9876500008,'s08@gmail.com'),
+('S09','Sage','Chennai',9876500009,'s09@gmail.com'),
+('S10','Cambridge','Delhi',9876500010,'s10@gmail.com'),
+('S11','Pearson India','Mumbai',9876500011,'s11@gmail.com'),
+('S12','Tech Press','Bangalore',9876500012,'s12@gmail.com'),
+('S13','Data Books','Pune',9876500013,'s13@gmail.com'),
+('S14','Global Books','Kolkata',9876500014,'s14@gmail.com'),
+('S15','Knowledge House','Hyderabad',9876500015,'s15@gmail.com'),
+('S16','Academic Press','Chennai',9876500016,'s16@gmail.com'),
+('S17','Elite Publishers','Delhi',9876500017,'s17@gmail.com'),
+('S18','Modern Books','Mumbai',9876500018,'s18@gmail.com'),
+('S19','Future Books','Bangalore',9876500019,'s19@gmail.com'),
+('S20','Scholars Press','Pune',9876500020,'s20@gmail.com');
+INSERT INTO LMS_FINE_DETAILS
+(FINE_RANGE, FINE_AMOUNT)
+VALUES
+('F01',10),
+('F02',20),
+('F03',30),
+('F04',40),
+('F05',50),
+('F06',60),
+('F07',70),
+('F08',80),
+('F09',90),
+('F10',100),
+('F11',110),
+('F12',120),
+('F13',130),
+('F14',140),
+('F15',150),
+('F16',160),
+('F17',170),
+('F18',180),
+('F19',190),
+('F20',200);
+INSERT INTO LMS_MEMBERS
+(MEMBER_ID, MEMBER_NAME, CITY, DATE_REGISTER, DATE_EXPIRE, MEMBERSHIP_STATUS)
+VALUES
+('M001','Rahul','Guntur','2012-01-10','2014-01-10','Permanent'),
+('M002','Priya','Hyderabad','2012-02-15','2013-02-15','Temporary'),
+('M003','Arun','Vijayawada','2011-12-20','2014-12-20','Permanent'),
+('M004','Sneha','Chennai','2012-01-05','2013-01-05','Temporary'),
+('M005','Kiran','Delhi','2012-04-10','2015-04-10','Permanent'),
+('M006','Anu','Mumbai','2011-11-12','2013-11-12','Permanent'),
+('M007','Ravi','Bangalore','2012-02-20','2013-02-20','Temporary'),
+('M008','Meena','Pune','2012-05-15','2015-05-15','Permanent'),
+('M009','Vijay','Kolkata','2011-10-10','2013-10-10','Permanent'),
+('M010','Pooja','Hyderabad','2012-01-25','2013-01-25','Temporary'),
+('M011','Suresh','Guntur','2012-06-10','2015-06-10','Permanent'),
+('M012','Divya','Chennai','2012-07-12','2015-07-12','Permanent'),
+('M013','Ajay','Delhi','2011-09-15','2013-09-15','Permanent'),
+('M014','Lakshmi','Mumbai','2012-02-01','2013-02-01','Temporary'),
+('M015','Manoj','Bangalore','2012-08-20','2015-08-20','Permanent'),
+('M016','Swathi','Pune','2011-08-10','2013-08-10','Permanent'),
+('M017','Naveen','Kolkata','2012-03-15','2015-03-15','Permanent'),
+('M018','Asha','Hyderabad','2012-01-20','2013-01-20','Temporary'),
+('M019','Ramesh','Guntur','2012-09-10','2015-09-10','Permanent'),
+('M020','Deepa','Chennai','2011-07-25','2013-07-25','Permanent');
+INSERT INTO LMS_BOOK_DETAILS
+(BOOK_CODE, BOOK_TITLE, CATEGORY, AUTHOR, PUBLICATION, PUBLISH_DATE, BOOK_EDITION, PRICE, RACK_NUM, DATE_ARRIVAL, SUPPLIER_ID)
+VALUES
+('BL000001','Java Programming','Java','James Gosling','Prentice Hall','2010-01-10',1,500,'R01','2011-01-10','S01'),
+('BL000002','Python Basics','Programming','Paul Barry','Pearson','2011-02-15',2,450,'R02','2011-03-10','S02'),
+('BL000003','Advanced Java','Java','Patrick Naughton','Prentice Hall','2010-05-20',2,600,'R03','2011-05-20','S01'),
+('BL000004','C Programming','Programming','Dennis Ritchie','McGraw Hill','2009-03-10',3,400,'R04','2010-04-10','S03'),
+('BL000005','Database Systems','Database','Abraham Silberschatz','Prentice Hall','2011-04-12',5,700,'R05','2011-06-15','S01'),
+('BL000006','Java Fundamentals','Java','Herbert Schildt','McGraw Hill','2012-01-10',4,550,'R06','2012-02-10','S03'),
+('BL000007','Web Development','Web','Paul Deitel','Pearson','2011-05-15',2,650,'R07','2011-07-10','S02'),
+('BL000008','Python Advanced','Python','Mark Lutz','OReilly','2012-02-20',3,750,'R08','2012-03-10','S08'),
+('BL000009','Operating Systems','OS','Abraham Silberschatz','Wiley','2010-06-15',8,800,'R09','2011-01-15','S05'),
+('BL000010','Computer Networks','Networking','Andrew Tanenbaum','Pearson','2011-08-10',5,850,'R10','2012-01-10','S02'),
+('BL000011','Java Complete Reference','Java','Herbert Schildt','Prentice Hall','2012-03-10',9,900,'R11','2012-04-10','S01'),
+('BL000012','Machine Learning','AI','Peter Harrington','OReilly','2013-01-10',1,950,'R12','2013-02-10','S08'),
+('BL000013','Data Structures','Programming','Pankaj Sharma','Prentice Hall','2011-09-10',2,500,'R13','2012-01-20','S01'),
+('BL000014','Algorithms','Programming','Robert Sedgewick','Pearson','2010-10-10',4,780,'R14','2011-02-20','S02'),
+('BL000015','Software Engineering','SE','Roger Pressman','McGraw Hill','2012-05-10',7,850,'R15','2012-06-10','S03'),
+('BL000016','Cloud Computing','Cloud','Thomas Erl','Pearson','2013-02-10',2,700,'R16','2013-03-10','S02'),
+('BL000017','Artificial Intelligence','AI','Patrick Winston','Prentice Hall','2011-11-10',3,900,'R17','2012-01-10','S01'),
+('BL000018','Computer Graphics','Graphics','Donald Hearn','Pearson','2010-12-10',6,820,'R18','2011-04-10','S02'),
+('BL000019','Java Enterprise','Java','Paul Deitel','Prentice Hall','2012-02-10',2,880,'R19','2012-04-01','S01'),
+('BL000020','Digital Logic','Electronics','Morris Mano','Pearson','2011-03-10',4,600,'R20','2011-05-10','S02');
+
+INSERT INTO LMS_BOOK_ISSUE
+(BOOK_ISSUE_NO, MEMBER_ID, BOOK_CODE, DATE_ISSUE, DATE_RETURN, DATE_RETURNED, BOOK_ISSUE_STATUS, FINE_RANGE)
+VALUES
+(1,'M001','BL000001','2012-03-01','2012-03-15','2012-03-14','Y','F01'),
+(2,'M002','BL000002','2012-03-05','2012-03-20',NULL,'N','F02'),
+(3,'M003','BL000003','2012-03-10','2012-03-25','2012-03-24','Y','F03'),
+(4,'M004','BL000004','2012-03-12','2012-03-27',NULL,'N','F04'),
+(5,'M005','BL000005','2012-04-01','2012-04-15','2012-04-14','Y','F05'),
+(6,'M006','BL000006','2012-04-01','2012-04-15',NULL,'N','F06'),
+(7,'M007','BL000007','2012-04-01','2012-04-20','2012-04-19','Y','F07'),
+(8,'M008','BL000008','2012-04-02','2012-04-17',NULL,'N','F08'),
+(9,'M009','BL000009','2012-04-03','2012-04-18','2012-04-17','Y','F09'),
+(10,'M010','BL000010','2012-04-04','2012-04-19',NULL,'N','F10'),
+(11,'M011','BL000011','2012-04-05','2012-04-20','2012-04-19','Y','F11'),
+(12,'M012','BL000012','2012-04-06','2012-04-21',NULL,'N','F12'),
+(13,'M013','BL000013','2012-04-07','2012-04-22','2012-04-21','Y','F13'),
+(14,'M014','BL000014','2012-04-08','2012-04-23',NULL,'N','F14'),
+(15,'M015','BL000015','2012-04-09','2012-04-24','2012-04-23','Y','F15'),
+(16,'M016','BL000016','2012-04-10','2012-04-25',NULL,'N','F16'),
+(17,'M017','BL000017','2012-04-11','2012-04-26','2012-04-25','Y','F17'),
+(18,'M018','BL000018','2012-04-12','2012-04-27',NULL,'N','F18'),
+(19,'M019','BL000019','2012-04-13','2012-04-28','2012-04-27','Y','F19'),
+(20,'M020','BL000020','2012-04-14','2012-04-29',NULL,'N','F20');
+
+SELECT COUNT(*) FROM LMS_MEMBERS;
+SELECT * FROM LMS_MEMBERS;
+SELECT * FROM LMS_BOOK_DETAILS;
+SELECT * FROM LMS_BOOK_ISSUE;
+SELECT * FROM LMS_FINE_DETAILS;
+SELECT * FROM LMS_SUPPLIERS_DETAILS;
+
+SELECT MEMBER_ID,MEMBER_NAME,CITY,MEMBERSHIP_STATUS
+FROM LMS_MEMBERS
+WHERE MEMBERSHIP_STATUS = 'Permanent';
+
+SELECT M.MEMBER_ID,M.MEMBER_NAME
+FROM LMS_MEMBERS M
+JOIN LMS_BOOK_ISSUE B
+ON M.MEMBER_ID = B.MEMBER_ID
+WHERE B.BOOK_ISSUE_STATUS = 'N';
+
+SELECT M.MEMBER_ID,M.MEMBER_NAME
+FROM LMS_MEMBERS M
+JOIN LMS_BOOK_ISSUE B
+ON M.MEMBER_ID = B.MEMBER_ID
+WHERE B.BOOK_CODE = 'BL000002';
+
+SELECT BOOK_CODE,BOOK_TITLE,AUTHOR
+FROM LMS_BOOK_DETAILS
+WHERE AUTHOR LIKE 'P%';
+
+SELECT COUNT(*) AS NO_OF_BOOKS
+FROM LMS_BOOK_DETAILS
+WHERE CATEGORY = 'Java';
+
+SELECT CATEGORY, COUNT(*) AS NO_OF_BOOKS
+FROM LMS_BOOK_DETAILS
+GROUP BY CATEGORY;
+
+SELECT COUNT(*) AS NO_OF_BOOKS
+FROM LMS_BOOK_DETAILS
+WHERE PUBLICATION = 'Prentice Hall';
+
+SELECT B.BOOK_CODE,B.BOOK_TITLE
+FROM LMS_BOOK_DETAILS B
+JOIN LMS_BOOK_ISSUE I
+ON B.BOOK_CODE = I.BOOK_CODE
+WHERE I.DATE_ISSUE = '2012-04-01';
+
+SELECT MEMBER_ID,MEMBER_NAME,DATE_REGISTER,MEMBERSHIP_STATUS
+FROM LMS_MEMBERS
+WHERE DATE_REGISTER < '2012-03-01'
+AND MEMBERSHIP_STATUS = 'Temporary';
+
+SELECT MEMBER_ID,MEMBER_NAME,DATE_REGISTER,DATE_EXPIRE
+FROM LMS_MEMBERS
+WHERE DATE_EXPIRE < '2013-04-01';
